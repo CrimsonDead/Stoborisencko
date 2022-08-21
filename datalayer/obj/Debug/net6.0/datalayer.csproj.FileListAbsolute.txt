@@ -10,3 +10,5 @@ E:\coding\cs\stoborisenco\datalayer\obj\Debug\net6.0\datalayer.dll
 E:\coding\cs\stoborisenco\datalayer\obj\Debug\net6.0\refint\datalayer.dll
 E:\coding\cs\stoborisenco\datalayer\obj\Debug\net6.0\datalayer.pdb
 E:\coding\cs\stoborisenco\datalayer\obj\Debug\net6.0\ref\datalayer.dll
+E:\coding\cs\stoborisenco\datalayer\bin\Debug\net6.0\datalayer.runtimeconfig.json
+E:\coding\cs\stoborisenco\datalayer\obj\Debug\net6.0\datalayer.genruntimeconfig.cache
