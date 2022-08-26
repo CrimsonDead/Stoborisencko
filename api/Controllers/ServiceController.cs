@@ -18,7 +18,7 @@ namespace api.Controllers
         }
 
         [HttpGet(Name = "Services")]
-        public ActionResult<IEnumerable<Service>> GetCars()
+        public ActionResult<IEnumerable<Service>> GetServices()
         {
             try
             {
