@@ -1,13 +1,13 @@
 namespace datalayer.Repositories
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<TItem> where TItem : class
     {
-        IEnumerable<T> GetItems();
-        T GetItemById(int id);
-        T GetItem(T item);
-        T Add(T item);
-        T Update(T item);
-        T Delete(T item);
+        IEnumerable<TItem> GetItems();
+        TItem GetItemById(int id);
+        TItem GetItem(TItem item);
+        Task<TItem> Add(TItem item);
+        Task<TItem> Update(TItem item);
+        Task<TItem> Delete(TItem item);
 
     }
 }

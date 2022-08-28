@@ -12,39 +12,39 @@ namespace datalayer.Repositories
             _context = context;
         }
 
-        public Service Add(Service item)
+        public async Task<Service> Add(Service item)
         {
-            _context.Services.Add(item);
-            _context.SaveChanges();
+            await _context.Services.AddAsync(item);
+            await _context.SaveChangesAsync();
             return item;
         }
 
-        public Service Delete(Service item)
+        public async Task<Service> Delete(Service item)
         {
             _context.Services.Remove(item);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return item;
         }
 
         public Service GetItem(Service item)
         {
-            return _context.Services.FirstOrDefault(service => service == item);
+            return _context.Services.AsParallel().FirstOrDefault(service => service == item);
         }
 
         public Service GetItemById(int id)
         {
-            return _context.Services.FirstOrDefault(service => service.Id == id);
+            return _context.Services.AsParallel().FirstOrDefault(service => service.Id == id);
         }
 
         public IEnumerable<Service> GetItems()
         {
-            return _context.Services.ToList();
+            return _context.Services.AsParallel().ToList();
         }
 
-        public Service Update(Service item)
+        public async Task<Service> Update(Service item)
         {
             _context.Services.Update(item);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return item;
         }
     }

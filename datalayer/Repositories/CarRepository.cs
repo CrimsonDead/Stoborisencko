@@ -12,39 +12,39 @@ namespace datalayer.Repositories
             _context = context;
         }
 
-        public Car Add(Car item)
+        public async Task<Car> Add(Car item)
         {
-            _context.Cars.Add(item);
-            _context.SaveChanges();
+            await _context.Cars.AddAsync(item);
+            await _context.SaveChangesAsync();
             return item;
         }
 
-        public Car Delete(Car item)
+        public async Task<Car> Delete(Car item)
         {
             _context.Cars.Remove(item);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return item;
         }
 
         public Car GetItem(Car item)
         {
-            return _context.Cars.FirstOrDefault(car => car == item);
+            return _context.Cars.AsParallel().FirstOrDefault(car => car == item);
         }
 
         public Car GetItemById(int id)
         {
-            return _context.Cars.FirstOrDefault(car => car.Id == id);
+            return _context.Cars.AsParallel().FirstOrDefault(car => car.Id == id);
         }
 
         public IEnumerable<Car> GetItems()
         {
-            return _context.Cars.ToList();
+            return _context.Cars.AsParallel().ToList();
         }
 
-        public Car Update(Car item)
+        public async Task<Car> Update(Car item)
         {
             _context.Cars.Update(item);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return item;
         }
     }
