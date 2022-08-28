@@ -12,39 +12,39 @@ namespace datalayer.Repositories
             _context = context;
         }
 
-        public Comment Add(Comment item)
+        public async Task<Comment> Add(Comment item)
         {
-            _context.Comments.Add(item);
-            _context.SaveChanges();
+            await _context.Comments.AddAsync(item);
+            await _context.SaveChangesAsync();
             return item;
         }
 
-        public Comment Delete(Comment item)
+        public async Task<Comment> Delete(Comment item)
         {
             _context.Comments.Remove(item);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return item;
         }
 
         public Comment GetItem(Comment item)
         {
-            return _context.Comments.FirstOrDefault(comment => comment == item);
+            return _context.Comments.AsParallel().FirstOrDefault(comment => comment == item);
         }
 
         public Comment GetItemById(int id)
         {
-            return _context.Comments.FirstOrDefault(comment => comment.Id == id);
+            return _context.Comments.AsParallel().FirstOrDefault(comment => comment.Id == id);
         }
 
         public IEnumerable<Comment> GetItems()
         {
-            return _context.Comments.ToList();
+            return _context.Comments.AsParallel().ToList();
         }
 
-        public Comment Update(Comment item)
+        public async Task<Comment> Update(Comment item)
         {
             _context.Comments.Update(item);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return item;
         }
     }
