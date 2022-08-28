@@ -26,12 +26,12 @@ namespace api.Controllers
                 if (comments.Count == 0)
                 {
                     _logger.LogInformation("Comment list is clear");
-                    return NotFound();
+                    return Ok(comments);
                 }
                 else if (comments == null)
                 {
                     _logger.LogInformation("Comment list is null");
-                    return NotFound();
+                    return Ok(comments);
                 }
                 return Ok(comments);
             }

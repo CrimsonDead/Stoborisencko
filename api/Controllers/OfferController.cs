@@ -26,12 +26,12 @@ namespace api.Controllers
                 if (offer.Count == 0)
                 {
                     _logger.LogInformation("Offer list is clear");
-                    return NotFound();
+                    return Ok(offer);
                 }
                 else if (offer == null)
                 {
                     _logger.LogInformation("Offer list is null");
-                    return NotFound();
+                    return Ok(offer);
                 }
                 return Ok(offer);
             }
