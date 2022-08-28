@@ -26,12 +26,12 @@ namespace api.Controllers
                 if (cars.Count == 0)
                 {
                     _logger.LogInformation("Car list is clear");
-                    return NotFound();
+                    return Ok(cars);
                 }
                 else if (cars == null)
                 {
                     _logger.LogInformation("Car list is null");
-                    return NotFound();
+                    return Ok(cars);
                 }
                 return Ok(cars);
             }

@@ -26,12 +26,12 @@ namespace api.Controllers
                 if (service.Count == 0)
                 {
                     _logger.LogInformation("Service list is clear");
-                    return NotFound();
+                    return Ok(service);
                 }
                 else if (service == null)
                 {
                     _logger.LogInformation("Service list is null");
-                    return NotFound();
+                    return Ok(service);
                 }
                 return Ok(service);
             }
