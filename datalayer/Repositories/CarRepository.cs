@@ -12,14 +12,14 @@ namespace datalayer.Repositories
             _context = context;
         }
 
-        public async Task<Car> Add(Car item)
+        public async Task<Car> AddAsync(Car item)
         {
             await _context.Cars.AddAsync(item);
             await _context.SaveChangesAsync();
             return item;
         }
 
-        public async Task<Car> Delete(Car item)
+        public async Task<Car> DeleteAsync(Car item)
         {
             _context.Cars.Remove(item);
             await _context.SaveChangesAsync();
@@ -41,7 +41,7 @@ namespace datalayer.Repositories
             return _context.Cars.AsParallel().ToList();
         }
 
-        public async Task<Car> Update(Car item)
+        public async Task<Car> UpdateAsync(Car item)
         {
             _context.Cars.Update(item);
             await _context.SaveChangesAsync();

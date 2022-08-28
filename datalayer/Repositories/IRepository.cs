@@ -5,9 +5,9 @@ namespace datalayer.Repositories
         IEnumerable<TItem> GetItems();
         TItem GetItemById(int id);
         TItem GetItem(TItem item);
-        Task<TItem> Add(TItem item);
-        Task<TItem> Update(TItem item);
-        Task<TItem> Delete(TItem item);
+        Task<TItem> AddAsync(TItem item);
+        Task<TItem> UpdateAsync(TItem item);
+        Task<TItem> DeleteAsync(TItem item);
 
     }
 }
