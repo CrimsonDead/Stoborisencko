@@ -12,14 +12,14 @@ namespace datalayer.Repositories
             _context = context;
         }
 
-        public async Task<Service> Add(Service item)
+        public async Task<Service> AddAsync(Service item)
         {
             await _context.Services.AddAsync(item);
             await _context.SaveChangesAsync();
             return item;
         }
 
-        public async Task<Service> Delete(Service item)
+        public async Task<Service> DeleteAsync(Service item)
         {
             _context.Services.Remove(item);
             await _context.SaveChangesAsync();
@@ -41,7 +41,7 @@ namespace datalayer.Repositories
             return _context.Services.AsParallel().ToList();
         }
 
-        public async Task<Service> Update(Service item)
+        public async Task<Service> UpdateAsync(Service item)
         {
             _context.Services.Update(item);
             await _context.SaveChangesAsync();
