@@ -17,7 +17,9 @@ namespace api.Controllers
 
         }
 
-        [HttpGet(Name = "Offers")]
+        // TODO create method for get offer by some properties.
+
+        [HttpGet("getAll", Name = "GetOffers")]
         public ActionResult<IEnumerable<Offer>> GetOffers()
         {
             try
@@ -41,5 +43,84 @@ namespace api.Controllers
                 return BadRequest(ex);
             }
         }
+
+        [HttpGet("getById/{id}", Name = "Offer")]
+        public ActionResult<Car> GetOfferById(int id)
+        {
+            try
+            {
+                Offer offer = _offerRepository.GetItemById(id);
+                if (offer == null)
+                {
+                    _logger.LogInformation("Offer item is null");
+                    return Ok(offer);
+                }
+                _logger.LogInformation("Offer is successfully receive");
+                return Ok(offer);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to get Offer");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPost("createNew", Name = "NewOffer")]
+        public async Task<ActionResult> CreateOfferAsync([FromForm] Offer offer)
+        {
+            try
+            {
+                await _offerRepository.AddAsync(offer);
+                _logger.LogInformation("Offer is successfully create");
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to create Offer");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPut("change", Name = "ChangeOffer")]
+        public async Task<ActionResult> UpdateOfferAsync([FromForm] Offer newOffer)
+        {
+            try
+            {
+                await _offerRepository.UpdateAsync(newOffer);
+                Offer offer = _offerRepository.GetItemById(newOffer.Id);
+                if (offer == newOffer)
+                {
+                    _logger.LogInformation("Offer is successfully change");
+                    return Ok();
+                }
+                else 
+                {
+                    _logger.LogInformation("Failed to change Offer");
+                    return Ok(null);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to update Offer");
+                return BadRequest(ex);
+            }
+        }
+        
+        [HttpDelete("delete", Name = "DeleteOffer")]
+        public async Task<ActionResult> DeleteOfferAsync([FromForm] Offer car)
+        {
+            try
+            {
+                await _offerRepository.DeleteAsync(car);
+                _logger.LogInformation("Offer is successfully delete");
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to delete Offer");
+                return BadRequest(ex);
+            }
+        }
+
     }
 }
