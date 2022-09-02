@@ -17,6 +17,8 @@ namespace api.Controllers
             _carRepository = carRepository;
         }
 
+        // TODO create method for get car by some properties.
+
         [HttpGet("getAll", Name = "GetCars")]
         public ActionResult<IEnumerable<Car>> GetCars()
         {
@@ -81,7 +83,7 @@ namespace api.Controllers
         }
 
         [HttpPut("change", Name = "ChangeCar")]
-        public async Task<ActionResult<Car>> UpdateCarAsync([FromForm] Car newCar)
+        public async Task<ActionResult> UpdateCarAsync([FromForm] Car newCar)
         {
             try
             {
@@ -90,7 +92,7 @@ namespace api.Controllers
                 if (car == newCar)
                 {
                     _logger.LogInformation("Car is successfully change");
-                    return Ok(car);
+                    return Ok();
                 }
                 else 
                 {
@@ -105,7 +107,7 @@ namespace api.Controllers
             }
         }
         
-        [HttpDelete("delete")]
+        [HttpDelete("delete", Name = "DeleteCar")]
         public async Task<ActionResult> DeleteCarAsync([FromForm] Car car)
         {
             try
