@@ -17,20 +17,20 @@ builder.Services.AddDbContext<ApplicationContext>(builder =>{
     builder.UseSqlServer(connectionString);
 });
 
-//builder.Services.AddIdentityCore<User>(options =>{
-//    options.Password.RequireNonAlphanumeric = true;
-//    options.Password.RequireDigit = true;
-//})
-//.AddDefaultTokenProviders()
-//.AddEntityFrameworkStores<ApplicationContext>();
+builder.Services.AddIdentityCore<User>(options =>{
+   options.Password.RequireNonAlphanumeric = true;
+   options.Password.RequireDigit = true;
+})
+.AddDefaultTokenProviders()
+.AddEntityFrameworkStores<ApplicationContext>();
 
-// builder.Services.AddAuthentication();
-// builder.Services.AddAuthorization();
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
 
-//builder.Services.AddScoped<IRepository<Car>, CarRepository>();
-//builder.Services.AddScoped<IRepository<Comment>, CommentRepository>();
-//builder.Services.AddScoped<IRepository<Offer>, OfferRepository>();
-//builder.Services.AddScoped<IRepository<Service>, ServiceRepository>();
+builder.Services.AddScoped<IRepository<Car>, CarRepository>();
+builder.Services.AddScoped<IRepository<Comment>, CommentRepository>();
+builder.Services.AddScoped<IRepository<Offer>, OfferRepository>();
+builder.Services.AddScoped<IRepository<Service>, ServiceRepository>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -48,7 +48,7 @@ if (app.Environment.IsDevelopment())
 
 // app.UseHttpsRedirection();
 
-// app.UseAuthentication();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
