@@ -17,7 +17,7 @@ namespace api.Controllers
 
         }
 
-        [HttpGet(Name = "Comments")]
+        [HttpGet("getAll", Name = "GetComments")]
         public ActionResult<IEnumerable<Comment>> GetComments()
         {
             try
@@ -33,6 +33,7 @@ namespace api.Controllers
                     _logger.LogInformation("Comment list is null");
                     return Ok(comments);
                 }
+                _logger.LogInformation("Comment list is successfully receive");
                 return Ok(comments);
             }
             catch (Exception ex)
@@ -41,5 +42,86 @@ namespace api.Controllers
                 return BadRequest(ex);
             }
         }
+
+        [HttpGet("getById", Name = "Comment")]
+        public ActionResult<Comment> GetCommentById(int id)
+        {
+            try
+            {
+                Comment comment = _commentRepository.GetItemById(id);
+                if (comment == null)
+                {
+                    _logger.LogInformation("Comment item is null");
+                    return Ok(comment);
+                }
+                _logger.LogInformation("Comment is successfully receive");
+                return Ok(comment);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to get Comment");
+                return BadRequest(ex);
+            }
+        }
+
+        //TODO Create method for creating a reply to a comment
+
+        [HttpPost("createNew", Name = "NewComment")]
+        public async Task<ActionResult> CreateCommentAsync([FromForm] Comment comment)
+        {
+            try
+            {
+                await _commentRepository.AddAsync(comment);
+                _logger.LogInformation("Comment is successfully create");
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to create Comment");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPut("change", Name = "ChangeComment")]
+        public async Task<ActionResult> UpdateCommentAsync([FromForm] Comment newComment)
+        {
+            try
+            {
+                await _commentRepository.UpdateAsync(newComment);
+                Comment comment = _commentRepository.GetItemById(newComment.Id);
+                if (comment == newComment)
+                {
+                    _logger.LogInformation("Comment is successfully change");
+                    return Ok();
+                }
+                else 
+                {
+                    _logger.LogInformation("Failed to change Comment");
+                    return Ok(null);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to update Comment");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpDelete("delete", Name = "DeleteComment")]
+        public async Task<ActionResult> DeleteCommentAsync([FromForm] Comment comment)
+        {
+            try
+            {
+                await _commentRepository.DeleteAsync(comment);
+                _logger.LogInformation("Comment is successfully delete");
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to delete Comment");
+                return BadRequest(ex);
+            }
+        }
+
     }
 }
