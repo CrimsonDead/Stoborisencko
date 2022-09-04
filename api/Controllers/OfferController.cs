@@ -88,16 +88,8 @@ namespace api.Controllers
             {
                 await _offerRepository.UpdateAsync(newOffer);
                 Offer offer = _offerRepository.GetItemById(newOffer.Id);
-                if (offer == newOffer)
-                {
-                    _logger.LogInformation("Offer is successfully change");
-                    return Ok();
-                }
-                else 
-                {
-                    _logger.LogInformation("Failed to change Offer");
-                    return Ok(null);
-                }
+                _logger.LogInformation("Offer is successfully change");
+                return Ok();
             }
             catch (Exception ex)
             {

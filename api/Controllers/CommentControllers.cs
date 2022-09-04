@@ -89,16 +89,8 @@ namespace api.Controllers
             {
                 await _commentRepository.UpdateAsync(newComment);
                 Comment comment = _commentRepository.GetItemById(newComment.Id);
-                if (comment == newComment)
-                {
-                    _logger.LogInformation("Comment is successfully change");
-                    return Ok();
-                }
-                else 
-                {
-                    _logger.LogInformation("Failed to change Comment");
-                    return Ok(null);
-                }
+                _logger.LogInformation("Comment is successfully change");
+                return Ok();
             }
             catch (Exception ex)
             {
