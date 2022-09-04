@@ -43,7 +43,7 @@ namespace api.Controllers
         }
 
         [HttpGet("getById", Name = "User")]
-        public ActionResult<User> GetUserById(string id)
+        public ActionResult<User> GetUserById([FromForm] string id)
         {
             try
             {
@@ -142,11 +142,12 @@ namespace api.Controllers
         }
 
         [HttpDelete("delete", Name = "DeleteUser")]
-        public async Task<ActionResult> DeleteUserAsync([FromForm] User user)
+        public async Task<ActionResult> DeleteUserAsync([FromForm] string id)
         {
             try
             {
-                await _signInManager.UserManager.DeleteAsync(user);
+                var targetUser = _signInManager.UserManager.Users.FirstOrDefault(u => u.Id == id);
+                await _signInManager.UserManager.DeleteAsync(targetUser);
                 _logger.LogInformation("User is successfully delete");
                 return Ok();
             }
