@@ -24,7 +24,6 @@ builder.Services.AddIdentity<User, IdentityRole>(o =>{
 .AddDefaultTokenProviders()
 .AddEntityFrameworkStores<ApplicationContext>();
 
-builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<IRepository<Car>, CarRepository>();
