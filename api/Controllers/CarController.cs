@@ -89,16 +89,8 @@ namespace api.Controllers
             {
                 await _carRepository.UpdateAsync(newCar);
                 Car car = _carRepository.GetItemById(newCar.Id);
-                if (car == newCar)
-                {
-                    _logger.LogInformation("Car is successfully change");
-                    return Ok();
-                }
-                else 
-                {
-                    _logger.LogInformation("Failed to change car");
-                    return Ok(null);
-                }
+                _logger.LogInformation("Car is successfully change");
+                return Ok();
             }
             catch (Exception ex)
             {

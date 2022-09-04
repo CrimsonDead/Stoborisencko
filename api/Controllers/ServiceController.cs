@@ -86,16 +86,8 @@ namespace api.Controllers
             {
                 await _serviceRepository.UpdateAsync(newService);
                 Service service = _serviceRepository.GetItemById(newService.Id);
-                if (service == newService)
-                {
-                    _logger.LogInformation("Service is successfully change");
-                    return Ok();
-                }
-                else 
-                {
-                    _logger.LogInformation("Failed to change Service");
-                    return Ok(null);
-                }
+                _logger.LogInformation("Service is successfully change");
+                return Ok();
             }
             catch (Exception ex)
             {
