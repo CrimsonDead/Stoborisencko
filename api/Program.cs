@@ -17,9 +17,9 @@ builder.Services.AddDbContext<ApplicationContext>(builder =>{
     builder.UseSqlServer(connectionString);
 });
 
-builder.Services.AddIdentityCore<User>(options =>{
-   options.Password.RequireNonAlphanumeric = true;
-   options.Password.RequireDigit = true;
+builder.Services.AddIdentity<User, IdentityRole>(o =>{
+    o.Password.RequireNonAlphanumeric = true;
+    o.Password.RequireDigit = true;
 })
 .AddDefaultTokenProviders()
 .AddEntityFrameworkStores<ApplicationContext>();
