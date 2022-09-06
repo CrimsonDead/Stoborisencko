@@ -130,7 +130,18 @@ namespace api.Controllers
         {
             try
             {
-                await _signInManager.UserManager.UpdateAsync(newUser);
+                var targetUser = _signInManager.UserManager.Users.FirstOrDefault(u => u.Id == newUser.Id);
+                targetUser.UserName = newUser.UserName;
+                targetUser.Email = newUser.Email;
+                targetUser.PhoneNumber = newUser.PhoneNumber;
+                var result = await _signInManager.UserManager.UpdateAsync(targetUser);
+                if (!result.Succeeded)
+                {
+                    _logger.LogInformation("Failed to update user");
+                    foreach (var error in result.Errors)
+                        _logger.LogInformation(error.Description);
+                    return BadRequest(result.Errors);
+                }
                 _logger.LogInformation("Comment is successfully change");
                 return Ok();
             }
@@ -147,7 +158,14 @@ namespace api.Controllers
             try
             {
                 var targetUser = _signInManager.UserManager.Users.FirstOrDefault(u => u.Id == id);
-                await _signInManager.UserManager.DeleteAsync(targetUser);
+                var result = await _signInManager.UserManager.DeleteAsync(targetUser);
+                if (!result.Succeeded)
+                {
+                    _logger.LogInformation("Failed to delete user");
+                    foreach (var error in result.Errors)
+                        _logger.LogInformation(error.Description);
+                    return BadRequest(result.Errors);
+                }
                 _logger.LogInformation("User is successfully delete");
                 return Ok();
             }
